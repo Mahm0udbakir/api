@@ -3,7 +3,7 @@ import '../models/user_model.dart';
 import '../services/api_service.dart';
 import '../utils/api_error_handler.dart';
 
- class UserRepository{
+class UserRepository {
   final ApiService _apiService;
 
   UserRepository(this._apiService);
@@ -27,4 +27,14 @@ import '../utils/api_error_handler.dart';
       throw Exception('Failed to fetch user: $e');
     }
   }
-} 
+
+  Future<User> createUser(User user, String token) async {
+    try {
+      return await _apiService.createUser(user, token);
+    } on DioException catch (e) {
+      throw Exception(ApiErrorHandler.handleError(e));
+    } catch (e) {
+      throw Exception('Failed to create user: $e');
+    }
+  }
+}

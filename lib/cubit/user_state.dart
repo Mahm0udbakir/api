@@ -11,6 +11,10 @@ class OneUserLoaded extends UserState {
   final User user;
   OneUserLoaded(this.user);
 }
+class UserCreated extends UserState {
+  final User newUser;
+  UserCreated(this.newUser);
+}
 class UserError extends UserState {
   final String message;
   UserError(this.message);

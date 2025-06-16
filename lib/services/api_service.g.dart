@@ -12,7 +12,6 @@ class _ApiService implements ApiService {
   _ApiService(
     this._dio, {
     this.baseUrl,
-    // ignore: unused_element_parameter
     this.errorLogger,
   }) {
     baseUrl ??= 'https://gorest.co.in/public/v2/';
@@ -73,6 +72,44 @@ class _ApiService implements ApiService {
         .compose(
           _dio.options,
           'users/${id}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late User _value;
+    try {
+      _value = User.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<User> createUser(
+    User user,
+    String token,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authorization': token};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    _data.addAll(user.toJson());
+    final _options = _setStreamType<User>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          'users',
           queryParameters: queryParameters,
           data: _data,
         )

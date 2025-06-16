@@ -4,7 +4,7 @@ import '../models/user_model.dart';
 
 part 'api_service.g.dart';
 
-@RestApi(baseUrl: "https://gorest.co.in/public/v2/") 
+@RestApi(baseUrl: "https://gorest.co.in/public/v2/")
 abstract class ApiService {
   factory ApiService(Dio dio, {String baseUrl}) = _ApiService;
 
@@ -13,4 +13,7 @@ abstract class ApiService {
 
   @GET("users/{id}")
   Future<User> getUserById(@Path('id') String id);
-} 
+
+  @POST("users")
+  Future<User> createUser(@Body() User user, @Header('Authorization') String token);
+}
