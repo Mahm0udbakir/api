@@ -1,3 +1,4 @@
+import 'package:api/utils/api_result.dart';
 import 'package:dio/dio.dart';
 import '../models/user_model.dart';
 import '../services/api_service.dart';
@@ -8,33 +9,47 @@ class UserRepository {
 
   UserRepository(this._apiService);
 
-  Future<List<User>> getUsers() async {
+  Future<ApiResult<List<User>>> getUsers() async {
     try {
-      return await _apiService.getUsers();
+      final users = await _apiService.getUsers();
+      return ApiResult.success(users);
     } on DioException catch (e) {
-      throw Exception(ApiErrorHandler.handleError(e));
+      return ApiResult.error(NetworkExceptions.getDioException(e));
     } catch (e) {
       throw Exception('Failed to fetch users: $e');
     }
   }
 
-  Future<User> getUserById(String id) async {
+  Future<ApiResult<User>> getUserById(String id) async {
     try {
-      return await _apiService.getUserById(id);
+      final response = await _apiService.getUserById(id);
+      return ApiResult.success(response);
     } on DioException catch (e) {
-      throw Exception(ApiErrorHandler.handleError(e));
+      return ApiResult.error(NetworkExceptions.getDioException(e));
     } catch (e) {
-      throw Exception('Failed to fetch user: $e');
+      return ApiResult.error(NetworkExceptions.unexpectedError());
     }
   }
 
-  Future<User> createUser(User user, String token) async {
+  Future<ApiResult<User>> createUser(User user, String token) async {
     try {
-      return await _apiService.createUser(user, token);
+      final response = await _apiService.createUser(user, token);
+      return ApiResult.success(response);
     } on DioException catch (e) {
-      throw Exception(ApiErrorHandler.handleError(e));
+      return ApiResult.error(NetworkExceptions.getDioException(e));
     } catch (e) {
-      throw Exception('Failed to create user: $e');
+      return ApiResult.error(NetworkExceptions.unexpectedError());
+    }
+  }
+  
+  Future<ApiResult<dynamic>> deleteUser(String id, String token) async {
+    try {
+      final response = await _apiService.deleteUser(id, token);
+      return ApiResult.success(response);
+      } on DioException catch (e) {
+      return ApiResult.error(NetworkExceptions.getDioException(e));
+    } catch (e) {
+      return ApiResult.error(NetworkExceptions.unexpectedError());
     }
   }
 }

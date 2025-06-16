@@ -16,4 +16,7 @@ abstract class ApiService {
 
   @POST("users")
   Future<User> createUser(@Body() User user, @Header('Authorization') String token);
+
+  @DELETE("users/{id}")
+  Future<dynamic> deleteUser(@Path('id') String id, @Header('Authorization') String token);
 }
