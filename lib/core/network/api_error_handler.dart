@@ -131,62 +131,64 @@ class NetworkExceptions with _$NetworkExceptions {
 
   static String getErrorMessage(NetworkExceptions networkExceptions) {
     var errorMessage = "";
-    networkExceptions.when(
-      notImplemented: () {
+    switch (networkExceptions.runtimeType) {
+      case NotImplemented _:
         errorMessage = "Not Implemented";
-      },
-      requestCancelled: () {
+        break;
+      case RequestCancelled _:
         errorMessage = "Request Cancelled";
-      },
-      internalServerError: () {
+        break;
+      case InternalServerError _:
         errorMessage = "Internal Server Error";
-      },
-      notFound: (String reason) {
-        errorMessage = reason;
-      },
-      serviceUnavailable: () {
+        break;
+      case NotFound _:
+        errorMessage = (networkExceptions as NotFound).reason;
+        break;
+      case ServiceUnavailable _:
         errorMessage = "Service unavailable";
-      },
-      methodNotAllowed: () {
+        break;
+      case MethodNotAllowed _:
         errorMessage = "Method Allowed";
-      },
-      badRequest: () {
+        break;
+      case BadRequest _:
         errorMessage = "Bad request";
-      },
-      unauthorizedRequest: (String error) {
-        errorMessage = error;
-      },
-      unprocessableEntity: (String error) {
-        errorMessage = error;
-      },
-      unexpectedError: () {
+        break;
+      case UnauthorizedRequest _:
+        errorMessage = (networkExceptions as UnauthorizedRequest).reason;
+        break;
+      case UnprocessableEntity _:
+        errorMessage = (networkExceptions as UnprocessableEntity).reason;
+        break;
+      case UnexpectedError _:
         errorMessage = "Unexpected error occurred";
-      },
-      requestTimeout: () {
+        break;
+      case RequestTimeout _:
         errorMessage = "Connection request timeout";
-      },
-      noInternetConnection: () {
+        break;
+      case NoInternetConnection _:
         errorMessage = "No internet connection";
-      },
-      conflict: () {
+        break;
+      case Conflict _:
         errorMessage = "Error due to a conflict";
-      },
-      sendTimeout: () {
+        break;
+      case SendTimeout _:
         errorMessage = "Send timeout in connection with API server";
-      },
-      unableToProcess: () {
+        break;
+      case UnableToProcess _:
         errorMessage = "Unable to process the data";
-      },
-      defaultError: (String error) {
-        errorMessage = error;
-      },
-      formatException: () {
+        break;
+      case DefaultError _:
+        errorMessage = (networkExceptions as DefaultError).error;
+        break;
+      case FormatException _:
         errorMessage = "Unexpected error occurred";
-      },
-      notAcceptable: () {
+        break;
+      case NotAcceptable _:
         errorMessage = "Not acceptable";
-      },
-    );
+        break;
+      default:
+        errorMessage = "Unexpected error occurred";
+    }
     return errorMessage;
   }
 }

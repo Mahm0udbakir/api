@@ -1,6 +1,5 @@
 import 'package:api/cubit/result_state.dart';
 import 'package:api/models/user_model.dart';
-import 'package:api/utils/api_error_handler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../repositories/user_repository.dart';
 
@@ -11,10 +10,11 @@ class UserCubit extends Cubit<ResultState<User>> {
   Future<void> fetchUsers() async {
     emit(Loading());
     final result = await userRepository.getUsers();
-    result.when(
-      success: (List<User> users) => emit(ResultState.success(user)),
-      error: (NetworkExceptions e) => emit(Error(e)),
-    );
+    if (result is Success) {
+      emit(ResultState.success((result as Success<List<User>>).data.first));
+    } else if (result is Error) {
+      emit(Error((result as Error).networkExceptions));
+    }
   }
 
   // Future<void> fetchUserById(String id) async {
@@ -29,10 +29,10 @@ class UserCubit extends Cubit<ResultState<User>> {
 
   Future<void> createUser(User newUser, String token) async {
     emit(Loading());
-    final result = await userRepository.createUser(newUser, token);
+    var result = await userRepository.createUser(newUser, token);
     result.when(
-      success: (User user) => emit(ResultState.success(user)),
-      error: (NetworkExceptions e) => emit(Error(e)),
+      success: (user) => emit(ResultState.success(user)),
+      error: (error) => emit(ResultState.error(error)),
     );
   }
 

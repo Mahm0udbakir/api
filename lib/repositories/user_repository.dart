@@ -1,8 +1,8 @@
+import 'package:api/core/network/api_error_handler.dart';
 import 'package:api/utils/api_result.dart';
 import 'package:dio/dio.dart';
 import '../models/user_model.dart';
 import '../services/api_service.dart';
-import '../utils/api_error_handler.dart';
 
 class UserRepository {
   final ApiService _apiService;
