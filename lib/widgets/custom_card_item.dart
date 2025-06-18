@@ -4,10 +4,15 @@ import 'package:api/widgets/custom_shrimmer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-class CardItem extends StatelessWidget {
+abstract class CardItemModel {
+  String? get image;
+  String? get name;
+}
+
+class CardItem<T extends CardItemModel> extends StatelessWidget {
   const CardItem({super.key, this.model});
 
-  final DataModel? model;
+  final T? model;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -41,7 +46,7 @@ class CardItem extends StatelessWidget {
                        ),
                   )
                 : CachedNetworkImage(
-                    imageUrl: model!.image,
+                    imageUrl: model!.image!,
                     fit: BoxFit.cover,
                     placeholder: (context, url) => CustomShrimmer(
                       shimmerContainer: Container(

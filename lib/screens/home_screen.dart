@@ -1,4 +1,4 @@
-import 'package:api/core/network/api_error_handler.dart';
+import 'package:api/network/api_error_handler.dart';
 import 'package:api/cubit/result_state.dart';
 import 'package:api/models/user_model.dart';
 import 'package:flutter/material.dart';
@@ -26,25 +26,26 @@ class HomeScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(title: const Text('Home Screen')),
         body: BlocBuilder<UserCubit, ResultState<User>>(
-          builder: (context, state) {
-            if (state is Idle) {
-              return const Center(child: CircularProgressIndicator(color: Colors.green,));
-            } else if (state is Loading) {
-              return const Center(child: CircularProgressIndicator(color: Colors.red,));
-            } else if (state is Success<User>) {
-              return Container(
-                height: 50,
-                color: Colors.red,
-                child: Center(child: Text(state.data.email.toString())),
-              );
-            } else if (state is Error<User>) {
-              return Center(
-                child: Text(
-                  NetworkExceptions.getErrorMessage(state.networkExceptions),
-                ),
-              );
-            }
-            return const Center(child: Text('Unknown state'));
+          builder: (context, ResultState<User> state) {
+            return state.when(
+              idle: () => const Center(child: CircularProgressIndicator()),
+              loading: () => const Center(child: CircularProgressIndicator()),
+              success:
+                  (User userData) => Container(
+                    height: 50,
+                    color: Colors.red,
+                    child: Center(
+                      child: Text(
+                        userData.email.toString(),
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+              error:
+                  (NetworkExceptions error) => Center(
+                    child: Text(NetworkExceptions.getErrorMessage(error)),
+                  ),
+            );
           },
         ),
       ),

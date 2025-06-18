@@ -1,4 +1,4 @@
-import 'package:api/core/network/api_error_handler.dart';
+import 'package:api/network/api_error_handler.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'result_state.freezed.dart';

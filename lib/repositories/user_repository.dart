@@ -1,4 +1,4 @@
-import 'package:api/core/network/api_error_handler.dart';
+import 'package:api/network/api_error_handler.dart';
 import 'package:api/utils/api_result.dart';
 import 'package:dio/dio.dart';
 import '../models/user_model.dart';

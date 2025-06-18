@@ -3,7 +3,13 @@ import 'package:api/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CustomTextFormField extends StatelessWidget {
+abstract class PasswordCubit<S> extends Cubit<S> {
+  PasswordCubit(super.initialState);
+  bool get passwordVisible;
+  void togglePasswordVisibility();
+}
+
+class CustomTextFormField<C extends PasswordCubit<S>, S> extends StatelessWidget {
   const CustomTextFormField({
     super.key,
     this.keyboardType,
@@ -20,7 +26,7 @@ class CustomTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var myAuthCubit = BlocProvider.of<UserCubit>(context);
+    var myAuthCubit = BlocProvider.of<C>(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
       child: TextFormField(

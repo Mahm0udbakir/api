@@ -55,6 +55,8 @@ abstract class NetworkExceptions with _$NetworkExceptions {
         .replaceAll(")", "");
     int statusCode = response?.statusCode ?? 0;
     switch (statusCode) {
+      case 400:
+      case 401:
       case 403:
         return NetworkExceptions.unauthorizedRequest(allErrors);
       case 404:
