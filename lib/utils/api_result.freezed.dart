@@ -4,7 +4,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'result_state.dart';
+part of 'api_result.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,7 +13,7 @@ part of 'result_state.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$ResultState<T> {
+mixin _$ApiResult<T> {
 
 
 
@@ -21,7 +21,7 @@ mixin _$ResultState<T> {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ResultState<T>);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ApiResult<T>);
 }
 
 
@@ -30,92 +30,28 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ResultState<$T>()';
+  return 'ApiResult<$T>()';
 }
 
 
 }
 
 /// @nodoc
-class $ResultStateCopyWith<T,$Res>  {
-$ResultStateCopyWith(ResultState<T> _, $Res Function(ResultState<T>) __);
+class $ApiResultCopyWith<T,$Res>  {
+$ApiResultCopyWith(ApiResult<T> _, $Res Function(ApiResult<T>) __);
 }
 
 
 /// @nodoc
 
 
-class Idle<T> implements ResultState<T> {
-  const Idle();
-  
-
-
-
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Idle<T>);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString() {
-  return 'ResultState<$T>.idle()';
-}
-
-
-}
-
-
-
-
-/// @nodoc
-
-
-class Loading<T> implements ResultState<T> {
-  const Loading();
-  
-
-
-
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Loading<T>);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString() {
-  return 'ResultState<$T>.loading()';
-}
-
-
-}
-
-
-
-
-/// @nodoc
-
-
-class Success<T> implements ResultState<T> {
+class Success<T> implements ApiResult<T> {
   const Success(this.data);
   
 
  final  T data;
 
-/// Create a copy of ResultState
+/// Create a copy of ApiResult
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
@@ -134,14 +70,14 @@ int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(
 
 @override
 String toString() {
-  return 'ResultState<$T>.success(data: $data)';
+  return 'ApiResult<$T>.success(data: $data)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $SuccessCopyWith<T,$Res> implements $ResultStateCopyWith<T, $Res> {
+abstract mixin class $SuccessCopyWith<T,$Res> implements $ApiResultCopyWith<T, $Res> {
   factory $SuccessCopyWith(Success<T> value, $Res Function(Success<T>) _then) = _$SuccessCopyWithImpl;
 @useResult
 $Res call({
@@ -160,7 +96,7 @@ class _$SuccessCopyWithImpl<T,$Res>
   final Success<T> _self;
   final $Res Function(Success<T>) _then;
 
-/// Create a copy of ResultState
+/// Create a copy of ApiResult
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? data = freezed,}) {
   return _then(Success<T>(
@@ -175,13 +111,13 @@ as T,
 /// @nodoc
 
 
-class Error<T> implements ResultState<T> {
+class Error<T> implements ApiResult<T> {
   const Error(this.networkExceptions);
   
 
  final  NetworkExceptions networkExceptions;
 
-/// Create a copy of ResultState
+/// Create a copy of ApiResult
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
@@ -200,14 +136,14 @@ int get hashCode => Object.hash(runtimeType,networkExceptions);
 
 @override
 String toString() {
-  return 'ResultState<$T>.error(networkExceptions: $networkExceptions)';
+  return 'ApiResult<$T>.failure(networkExceptions: $networkExceptions)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $ErrorCopyWith<T,$Res> implements $ResultStateCopyWith<T, $Res> {
+abstract mixin class $ErrorCopyWith<T,$Res> implements $ApiResultCopyWith<T, $Res> {
   factory $ErrorCopyWith(Error<T> value, $Res Function(Error<T>) _then) = _$ErrorCopyWithImpl;
 @useResult
 $Res call({
@@ -226,7 +162,7 @@ class _$ErrorCopyWithImpl<T,$Res>
   final Error<T> _self;
   final $Res Function(Error<T>) _then;
 
-/// Create a copy of ResultState
+/// Create a copy of ApiResult
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? networkExceptions = null,}) {
   return _then(Error<T>(
@@ -235,7 +171,7 @@ as NetworkExceptions,
   ));
 }
 
-/// Create a copy of ResultState
+/// Create a copy of ApiResult
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')

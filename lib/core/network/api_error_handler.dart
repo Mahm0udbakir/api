@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:api/utils/error_model.dart';
 import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -7,7 +6,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'api_error_handler.freezed.dart';
 
 @freezed
-class NetworkExceptions with _$NetworkExceptions {
+abstract class NetworkExceptions with _$NetworkExceptions {
   const factory NetworkExceptions.requestCancelled() = RequestCancelled;
 
   const factory NetworkExceptions.unauthorizedRequest(String reason) =
@@ -107,7 +106,6 @@ class NetworkExceptions with _$NetworkExceptions {
               break;
             default:
               networkExceptions = const NetworkExceptions.unexpectedError();
-              break;
           }
         } else if (error is SocketException) {
           networkExceptions = const NetworkExceptions.noInternetConnection();
@@ -115,9 +113,9 @@ class NetworkExceptions with _$NetworkExceptions {
           networkExceptions = const NetworkExceptions.unexpectedError();
         }
         return networkExceptions;
-      } on FormatException {
+      } on FormatException catch (_) {
         return const NetworkExceptions.formatException();
-      } catch (e) {
+      } catch (_) {
         return const NetworkExceptions.unexpectedError();
       }
     } else {
@@ -131,64 +129,62 @@ class NetworkExceptions with _$NetworkExceptions {
 
   static String getErrorMessage(NetworkExceptions networkExceptions) {
     var errorMessage = "";
-    switch (networkExceptions.runtimeType) {
-      case NotImplemented _:
+    networkExceptions.when(
+      notImplemented: () {
         errorMessage = "Not Implemented";
-        break;
-      case RequestCancelled _:
+      },
+      requestCancelled: () {
         errorMessage = "Request Cancelled";
-        break;
-      case InternalServerError _:
+      },
+      internalServerError: () {
         errorMessage = "Internal Server Error";
-        break;
-      case NotFound _:
-        errorMessage = (networkExceptions as NotFound).reason;
-        break;
-      case ServiceUnavailable _:
+      },
+      notFound: (String reason) {
+        errorMessage = reason;
+      },
+      serviceUnavailable: () {
         errorMessage = "Service unavailable";
-        break;
-      case MethodNotAllowed _:
+      },
+      methodNotAllowed: () {
         errorMessage = "Method Allowed";
-        break;
-      case BadRequest _:
+      },
+      badRequest: () {
         errorMessage = "Bad request";
-        break;
-      case UnauthorizedRequest _:
-        errorMessage = (networkExceptions as UnauthorizedRequest).reason;
-        break;
-      case UnprocessableEntity _:
-        errorMessage = (networkExceptions as UnprocessableEntity).reason;
-        break;
-      case UnexpectedError _:
+      },
+      unauthorizedRequest: (String error) {
+        errorMessage = error;
+      },
+      unprocessableEntity: (String error) {
+        errorMessage = error;
+      },
+      unexpectedError: () {
         errorMessage = "Unexpected error occurred";
-        break;
-      case RequestTimeout _:
+      },
+      requestTimeout: () {
         errorMessage = "Connection request timeout";
-        break;
-      case NoInternetConnection _:
+      },
+      noInternetConnection: () {
         errorMessage = "No internet connection";
-        break;
-      case Conflict _:
+      },
+      conflict: () {
         errorMessage = "Error due to a conflict";
-        break;
-      case SendTimeout _:
+      },
+      sendTimeout: () {
         errorMessage = "Send timeout in connection with API server";
-        break;
-      case UnableToProcess _:
+      },
+      unableToProcess: () {
         errorMessage = "Unable to process the data";
-        break;
-      case DefaultError _:
-        errorMessage = (networkExceptions as DefaultError).error;
-        break;
-      case FormatException _:
+      },
+      defaultError: (String error) {
+        errorMessage = error;
+      },
+      formatException: () {
         errorMessage = "Unexpected error occurred";
-        break;
-      case NotAcceptable _:
+      },
+      notAcceptable: () {
         errorMessage = "Not acceptable";
-        break;
-      default:
-        errorMessage = "Unexpected error occurred";
-    }
+      },
+    );
     return errorMessage;
   }
 }

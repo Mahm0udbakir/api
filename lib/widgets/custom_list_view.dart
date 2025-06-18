@@ -1,6 +1,6 @@
-import 'package:dalel/core/functions/custom_snackbar.dart';
-import 'package:dalel/core/global_states/global_states.dart';
-import 'package:dalel/core/widgets/custom_shrimmer.dart';
+import 'package:api/functions/custom_snackbar.dart';
+import 'package:api/global_states/global_states.dart';
+import 'package:api/widgets/custom_shrimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

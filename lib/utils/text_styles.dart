@@ -1,4 +1,4 @@
-import 'package:dalel/core/utils/colors.dart';
+import 'package:api/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 abstract class MyAppTextStyles {

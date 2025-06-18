@@ -1,6 +1,5 @@
-import 'package:dalel/core/utils/colors.dart';
-import 'package:dalel/core/utils/text_styles.dart';
-import 'package:dalel/features/auth/presentation/view_model/cubit/auth_cubit.dart';
+import 'package:api/utils/colors.dart';
+import 'package:api/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,7 +20,7 @@ class CustomTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var myAuthCubit = BlocProvider.of<AuthCubit>(context);
+    var myAuthCubit = BlocProvider.of<UserCubit>(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
       child: TextFormField(

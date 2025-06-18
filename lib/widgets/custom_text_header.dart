@@ -1,5 +1,5 @@
-import 'package:dalel/core/utils/colors.dart';
-import 'package:dalel/core/utils/text_styles.dart';
+import 'package:api/utils/colors.dart';
+import 'package:api/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextHeader extends StatelessWidget {

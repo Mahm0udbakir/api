@@ -32,7 +32,7 @@ class UserCubit extends Cubit<ResultState<User>> {
     var result = await userRepository.createUser(newUser, token);
     result.when(
       success: (user) => emit(ResultState.success(user)),
-      error: (error) => emit(ResultState.error(error)),
+      failure: (error) => emit(ResultState.error(error)),
     );
   }
 

@@ -1,8 +1,7 @@
+import 'package:api/utils/colors.dart';
+import 'package:api/utils/text_styles.dart';
+import 'package:api/widgets/custom_shrimmer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dalel/core/models/data_model.dart';
-import 'package:dalel/core/utils/colors.dart';
-import 'package:dalel/core/utils/text_styles.dart';
-import 'package:dalel/core/widgets/custom_shrimmer.dart';
 import 'package:flutter/material.dart';
 
 class OptionItem extends StatelessWidget {

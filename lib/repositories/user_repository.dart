@@ -14,7 +14,7 @@ class UserRepository {
       final users = await _apiService.getUsers();
       return ApiResult.success(users);
     } on DioException catch (e) {
-      return ApiResult.error(NetworkExceptions.getDioException(e));
+      return ApiResult.failure(NetworkExceptions.getDioException(e));
     } catch (e) {
       throw Exception('Failed to fetch users: $e');
     }
@@ -25,9 +25,9 @@ class UserRepository {
       final response = await _apiService.getUserById(id);
       return ApiResult.success(response);
     } on DioException catch (e) {
-      return ApiResult.error(NetworkExceptions.getDioException(e));
+      return ApiResult.failure(NetworkExceptions.getDioException(e));
     } catch (e) {
-      return ApiResult.error(NetworkExceptions.unexpectedError());
+      return ApiResult.failure(NetworkExceptions.unexpectedError());
     }
   }
 
@@ -36,9 +36,9 @@ class UserRepository {
       final response = await _apiService.createUser(user, token);
       return ApiResult.success(response);
     } on DioException catch (e) {
-      return ApiResult.error(NetworkExceptions.getDioException(e));
+      return ApiResult.failure(NetworkExceptions.getDioException(e));
     } catch (e) {
-      return ApiResult.error(NetworkExceptions.unexpectedError());
+      return ApiResult.failure(NetworkExceptions.unexpectedError());
     }
   }
   
@@ -47,9 +47,9 @@ class UserRepository {
       final response = await _apiService.deleteUser(id, token);
       return ApiResult.success(response);
       } on DioException catch (e) {
-      return ApiResult.error(NetworkExceptions.getDioException(e));
+      return ApiResult.failure(NetworkExceptions.getDioException(e));
     } catch (e) {
-      return ApiResult.error(NetworkExceptions.unexpectedError());
+      return ApiResult.failure(NetworkExceptions.unexpectedError());
     }
   }
 }

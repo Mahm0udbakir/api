@@ -1,4 +1,5 @@
-import 'package:dalel/core/functions/custom_snackbar.dart'; // For SnackBarState
+
+import 'package:api/functions/custom_snackbar.dart';
 
 abstract class GlobalState {}
 
