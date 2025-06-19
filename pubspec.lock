@@ -286,14 +286,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.4.1"
-  flutter_clean_architecture:
-    dependency: "direct main"
-    description:
-      name: flutter_clean_architecture
-      sha256: "5cb1b4a4c179dcf1c5133b2e805f10b64fd623691213af1bde9a79601fa5eb85"
-      url: "https://pub.dev"
-    source: hosted
-    version: "6.0.2"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -632,14 +624,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.5.0"
-  responsive_builder:
-    dependency: transitive
-    description:
-      name: responsive_builder
-      sha256: f01bc341c73b6db7bd6319e22d2c160f28f924399ae46e6699ecc8160ba2765c
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.4.3"
   retrofit:
     dependency: "direct main"
     description:

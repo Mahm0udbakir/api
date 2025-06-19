@@ -1,4 +1,4 @@
-import 'package:api/utils/colors.dart';
+import 'package:api/core/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 abstract class MyAppTextStyles {
@@ -6,6 +6,7 @@ abstract class MyAppTextStyles {
     fontFamily: 'Pacifico',
     fontSize: 64,
     fontWeight: FontWeight.w400,
+
     color: MyAppColors.deepBrown,
   );
   static final pacifico400size28 = TextStyle(

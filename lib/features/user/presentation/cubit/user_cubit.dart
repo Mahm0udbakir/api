@@ -1,7 +1,7 @@
-import 'package:api/cubit/result_state.dart';
+import 'package:api/features/user/presentation/cubit/result_state.dart';
 import 'package:api/models/user_model.dart';
+import 'package:api/repositories/user_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../repositories/user_repository.dart';
 
 class UserCubit extends Cubit<ResultState<List<User>>> {
   final UserRepository userRepository;

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:api/utils/error_model.dart';
+import 'package:api/core/utils/error_model.dart';
 import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

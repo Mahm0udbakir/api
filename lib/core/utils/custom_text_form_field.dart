@@ -1,5 +1,5 @@
-import 'package:api/utils/colors.dart';
-import 'package:api/utils/text_styles.dart';
+import 'package:api/core/utils/colors.dart';
+import 'package:api/core/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
