@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:api/utils/error_model.dart';
 import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -9,12 +10,7 @@ part 'api_error_handler.freezed.dart';
 abstract class NetworkExceptions with _$NetworkExceptions {
   const factory NetworkExceptions.requestCancelled() = RequestCancelled;
 
-  const factory NetworkExceptions.unauthorizedRequest(String reason) =
-      UnauthorizedRequest;
-
   const factory NetworkExceptions.badRequest() = BadRequest;
-
-  const factory NetworkExceptions.notFound(String reason) = NotFound;
 
   const factory NetworkExceptions.methodNotAllowed() = MethodNotAllowed;
 
@@ -23,9 +19,6 @@ abstract class NetworkExceptions with _$NetworkExceptions {
   const factory NetworkExceptions.requestTimeout() = RequestTimeout;
 
   const factory NetworkExceptions.sendTimeout() = SendTimeout;
-
-  const factory NetworkExceptions.unprocessableEntity(String reason) =
-      UnprocessableEntity;
 
   const factory NetworkExceptions.conflict() = Conflict;
 
@@ -41,19 +34,34 @@ abstract class NetworkExceptions with _$NetworkExceptions {
 
   const factory NetworkExceptions.unableToProcess() = UnableToProcess;
 
-  const factory NetworkExceptions.defaultError(String error) = DefaultError;
-
   const factory NetworkExceptions.unexpectedError() = UnexpectedError;
+
+  const factory NetworkExceptions.unprocessableEntity(String reason) =
+      UnprocessableEntity;
+
+  const factory NetworkExceptions.notFound(String reason) = NotFound;
+
+  const factory NetworkExceptions.unauthorizedRequest(String reason) =
+      UnauthorizedRequest;
+
+  const factory NetworkExceptions.defaultError(String error) = DefaultError;
 
   static NetworkExceptions handleResponse(Response? response) {
     List<ErrorModel> listOfErrors =
         List.from(response?.data).map((e) => ErrorModel.fromJson(e)).toList();
+
+    if (listOfErrors.isEmpty) {
+      return const NetworkExceptions.defaultError("Unexpected error occurred");
+    }
+    
     String allErrors = listOfErrors
         .map((e) => "${e.field} : ${e.message}  ")
         .toString()
         .replaceAll("(", "")
         .replaceAll(")", "");
+    
     int statusCode = response?.statusCode ?? 0;
+    
     switch (statusCode) {
       case 400:
       case 401:
@@ -74,7 +82,7 @@ abstract class NetworkExceptions with _$NetworkExceptions {
       default:
         var responseCode = statusCode;
         return NetworkExceptions.defaultError(
-          "Received invalid status code: $responseCode",
+          "Received Unexpected status code: $responseCode",
         );
     }
   }
