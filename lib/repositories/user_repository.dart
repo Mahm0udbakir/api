@@ -16,7 +16,7 @@ class UserRepository {
     } on DioException catch (e) {
       return ApiResult.failure(NetworkExceptions.getDioException(e));
     } catch (e) {
-      throw Exception('Failed to fetch users: $e');
+      return ApiResult.failure(NetworkExceptions.unexpectedError());
     }
   }
 
