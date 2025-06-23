@@ -1,11 +1,13 @@
 import 'package:api/core/di/service_locator.dart';
 import 'package:api/core/functions/custom_snackbar.dart';
+import 'package:api/core/utils/colors.dart';
 import 'package:api/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:api/features/auth/presentation/cubit/auth_state.dart';
 import 'package:api/features/user/presentation/cubit/result_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
@@ -24,6 +26,7 @@ class _SignInScreenView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: const Color(0xFFF9F9F9),
       body: BlocConsumer<AuthCubit, AuthState>(
@@ -47,55 +50,54 @@ class _SignInScreenView extends StatelessWidget {
             children: [
               SafeArea(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                  padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.08),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       const Spacer(flex: 2),
-                      const Text(
+                      Text(
                         "Let's get started\nsaving food!",
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: GoogleFonts.poppins(
                           fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF2E7D32),
+                          fontWeight: FontWeight.w700,
+                          color: MyAppColors.primaryColor,
                         ),
                       ),
                       const Spacer(),
                       Image.asset(
-                        'assets/images/bag.png',
+                        'assets/images/bag.jpg',
                         height: 250,
                       ),
                       const Spacer(flex: 2),
                       _SocialSignInButton(
                         text: 'Continue with Google',
-                        icon: FontAwesomeIcons.google,
+                        icon: Image.asset('assets/images/google.jpeg',
+                            height: 24, width: 24),
                         onPressed: () =>
                             context.read<AuthCubit>().signInWithGoogle(),
                         backgroundColor: Colors.white,
                         textColor: Colors.black,
-                        iconColor: Colors.red,
-                        borderColor: Colors.grey.shade300,
+                        borderColor: MyAppColors.primaryColor,
                       ),
                       const SizedBox(height: 12),
                       _SocialSignInButton(
                         text: 'Continue with Facebook',
-                        icon: FontAwesomeIcons.facebook,
+                        icon: const FaIcon(FontAwesomeIcons.facebook,
+                            color: Colors.white),
                         onPressed: () =>
                             context.read<AuthCubit>().signInWithFacebook(),
                         backgroundColor: const Color(0xFF1877F2),
                         textColor: Colors.white,
-                        iconColor: Colors.white,
                       ),
                       const SizedBox(height: 12),
                       _SocialSignInButton(
-                        text: 'Continue with email',
-                        icon: Icons.email,
+                        text: 'Continue with Email',
+                        icon: const Icon(Icons.email_outlined, color: Colors.white),
                         onPressed: () => _showEmailSignInDialog(context),
-                        backgroundColor: const Color(0xFF004D40),
+                        backgroundColor: MyAppColors.primaryColor,
                         textColor: Colors.white,
-                        iconColor: Colors.white,
                       ),
                       const Spacer(),
                     ],
@@ -171,11 +173,10 @@ class _SignInScreenView extends StatelessWidget {
 
 class _SocialSignInButton extends StatelessWidget {
   final String text;
-  final IconData icon;
+  final Widget icon;
   final VoidCallback onPressed;
   final Color backgroundColor;
   final Color textColor;
-  final Color iconColor;
   final Color? borderColor;
 
   const _SocialSignInButton({
@@ -184,25 +185,26 @@ class _SocialSignInButton extends StatelessWidget {
     required this.onPressed,
     required this.backgroundColor,
     required this.textColor,
-    required this.iconColor,
     this.borderColor,
   });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
-      icon: FaIcon(icon, color: iconColor, size: 20),
-      label: Text(text, style: TextStyle(color: textColor, fontSize: 16)),
+      icon: icon,
+      label: Text(text,
+          style: GoogleFonts.poppins(
+              color: textColor, fontSize: 16, fontWeight: FontWeight.w500)),
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: backgroundColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
           side: borderColor != null
-              ? BorderSide(color: borderColor!)
+              ? BorderSide(color: borderColor!, width: 1.5)
               : BorderSide.none,
         ),
-        padding: const EdgeInsets.symmetric(vertical: 16),
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
       ),
     );
   }
