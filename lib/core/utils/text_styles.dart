@@ -4,9 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 abstract class MyAppTextStyles {
-  static final montserrat700size24 = GoogleFonts.montserrat(
+  static final montserrat700size24 = GoogleFonts.quicksand(
     fontSize: 24.sp,
-    fontWeight: FontWeight.w700,
+    fontWeight: FontWeight.w900,
     color: MyAppColors.secondaryColor,
   );
 
