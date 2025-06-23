@@ -39,7 +39,7 @@ class SocialSignInButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(50.r),
           side:
               borderColor != null
-                  ? BorderSide(color: borderColor!, width: 1.5)
+                  ? BorderSide(color: borderColor!, width: 2.5)
                   : BorderSide.none,
         ),
         padding: EdgeInsets.symmetric(vertical: 24.h, horizontal: 24.w),

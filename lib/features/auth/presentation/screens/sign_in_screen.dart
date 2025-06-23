@@ -83,7 +83,7 @@ class _SignInScreenView extends StatelessWidget {
                             context.read<AuthCubit>().signInWithGoogle(),
                         backgroundColor: Colors.white,
                         textColor: MyAppColors.secondaryColor,
-                        borderColor: MyAppColors.primaryColor,
+                        borderColor: MyAppColors.secondaryColor,
                       ),
                       SizedBox(height: 18.h),
                       SocialSignInButton(

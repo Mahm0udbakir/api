@@ -13,10 +13,7 @@ class AppRouter {
         path: '/signIn',
         builder: (context, state) => const SignInScreen(),
       ),
-      GoRoute(
-        path: '/home',
-        builder: (context, state) => const HomeScreen(),
-      ),
+      GoRoute(path: '/home', builder: (context, state) => const HomeScreen()),
     ],
     errorBuilder:
         (context, state) => Scaffold(
