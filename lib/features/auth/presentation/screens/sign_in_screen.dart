@@ -6,6 +6,7 @@ import 'package:api/features/auth/presentation/cubit/auth_state.dart';
 import 'package:api/features/user/presentation/cubit/result_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -26,7 +27,6 @@ class _SignInScreenView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: const Color(0xFFF9F9F9),
       body: BlocConsumer<AuthCubit, AuthState>(
@@ -50,7 +50,7 @@ class _SignInScreenView extends StatelessWidget {
             children: [
               SafeArea(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.08),
+                  padding: EdgeInsets.symmetric(horizontal: 30.w),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -60,41 +60,42 @@ class _SignInScreenView extends StatelessWidget {
                         "Let's get started\nsaving food!",
                         textAlign: TextAlign.center,
                         style: GoogleFonts.poppins(
-                          fontSize: 28,
+                          fontSize: 28.sp,
                           fontWeight: FontWeight.w700,
                           color: MyAppColors.primaryColor,
                         ),
                       ),
-                      const Spacer(),
+                      SizedBox(height: 20.h),
                       Image.asset(
                         'assets/images/bag.jpg',
-                        height: 250,
+                        height: 250.h,
                       ),
                       const Spacer(flex: 2),
                       _SocialSignInButton(
                         text: 'Continue with Google',
                         icon: Image.asset('assets/images/google.jpeg',
-                            height: 24, width: 24),
+                            height: 24.r, width: 24.r),
                         onPressed: () =>
                             context.read<AuthCubit>().signInWithGoogle(),
                         backgroundColor: Colors.white,
                         textColor: Colors.black,
                         borderColor: MyAppColors.primaryColor,
                       ),
-                      const SizedBox(height: 12),
+                      SizedBox(height: 12.h),
                       _SocialSignInButton(
                         text: 'Continue with Facebook',
-                        icon: const FaIcon(FontAwesomeIcons.facebook,
-                            color: Colors.white),
+                        icon: FaIcon(FontAwesomeIcons.facebook,
+                            color: Colors.white, size: 24.r),
                         onPressed: () =>
                             context.read<AuthCubit>().signInWithFacebook(),
                         backgroundColor: const Color(0xFF1877F2),
                         textColor: Colors.white,
                       ),
-                      const SizedBox(height: 12),
+                      SizedBox(height: 12.h),
                       _SocialSignInButton(
                         text: 'Continue with Email',
-                        icon: const Icon(Icons.email_outlined, color: Colors.white),
+                        icon: Icon(Icons.email_outlined,
+                            color: Colors.white, size: 24.r),
                         onPressed: () => _showEmailSignInDialog(context),
                         backgroundColor: MyAppColors.primaryColor,
                         textColor: Colors.white,
@@ -194,17 +195,19 @@ class _SocialSignInButton extends StatelessWidget {
       icon: icon,
       label: Text(text,
           style: GoogleFonts.poppins(
-              color: textColor, fontSize: 16, fontWeight: FontWeight.w500)),
+              color: textColor,
+              fontSize: 16.sp,
+              fontWeight: FontWeight.w500)),
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: backgroundColor,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(30.r),
           side: borderColor != null
               ? BorderSide(color: borderColor!, width: 1.5)
               : BorderSide.none,
         ),
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
+        padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 24.w),
       ),
     );
   }
