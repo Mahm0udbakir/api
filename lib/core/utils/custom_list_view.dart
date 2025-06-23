@@ -1,6 +1,6 @@
 import 'package:api/core/utils/custom_shrimmer.dart';
-import 'package:api/functions/custom_snackbar.dart';
-import 'package:api/global_states/global_states.dart';
+import 'package:api/core/functions/custom_snackbar.dart';
+import 'package:api/core/global_states/global_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

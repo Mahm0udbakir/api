@@ -1,5 +1,5 @@
 
-import 'package:api/functions/custom_snackbar.dart';
+import 'package:api/core/functions/custom_snackbar.dart';
 
 abstract class GlobalState {}
 

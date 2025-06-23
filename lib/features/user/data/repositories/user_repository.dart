@@ -1,7 +1,7 @@
 import 'package:api/core/network/api_error_handler.dart';
 import 'package:api/core/utils/api_result.dart';
-import 'package:api/models/user_model.dart';
-import 'package:api/services/api_service.dart';
+import 'package:api/features/user/data/models/user_model.dart';
+import 'package:api/core/services/api_service.dart';
 import 'package:dio/dio.dart';
 
 class UserRepository {

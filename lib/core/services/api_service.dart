@@ -1,6 +1,6 @@
+import 'package:api/features/user/data/models/user_model.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
-import '../models/user_model.dart';
 
 part 'api_service.g.dart';
 

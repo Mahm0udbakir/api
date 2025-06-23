@@ -1,10 +1,10 @@
-import 'package:api/config/api_config.dart';
-import 'package:api/cubit/user_cubit.dart';
-import 'package:api/repositories/user_repository.dart';
-import 'package:api/services/api_service.dart';
+import 'package:api/core/config/api_config.dart';
+import 'package:api/core/utils/app_interceptors.dart';
+import 'package:api/features/user/data/repositories/user_repository.dart';
+import 'package:api/features/user/presentation/cubit/user_cubit.dart';
+import 'package:api/core/services/api_service.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
-import 'package:api/utils/app_interceptors.dart';
 
 final getIt = GetIt.instance;
 

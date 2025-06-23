@@ -1,7 +1,7 @@
+import 'package:api/core/di/service_locator.dart';
 import 'package:api/core/network/api_error_handler.dart';
-import 'package:api/di/service_locator.dart';
+import 'package:api/features/user/data/models/user_model.dart';
 import 'package:api/features/user/presentation/cubit/result_state.dart';
-import 'package:api/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubit/user_cubit.dart';
