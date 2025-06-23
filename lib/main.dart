@@ -1,11 +1,14 @@
 import 'package:api/core/di/service_locator.dart';
-import 'package:api/features/user/data/repositories/user_repository.dart';
-import 'package:api/features/user/presentation/cubit/user_cubit.dart';
-import 'package:api/features/user/presentation/screens/home_screen.dart';
+import 'package:api/features/auth/presentation/screens/sign_in_screen.dart';
+import 'package:api/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   setupServiceLocator();
   runApp(const MyApp());
 }
@@ -15,11 +18,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: BlocProvider(
-        create: (context) => UserCubit(getIt<UserRepository>()),
-        child: const HomeScreen(),
-      ),
+    return const MaterialApp(
+      home: SignInScreen(),
     );
   }
 }

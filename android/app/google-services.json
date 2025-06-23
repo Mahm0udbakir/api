@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "129045767768",
+    "project_id": "savefood-egypt",
+    "storage_bucket": "savefood-egypt.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:129045767768:android:143c00bdcf78de0d68cc2d",
+        "android_client_info": {
+          "package_name": "com.example.api"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFrKYdz2tRH04lzBUYCwVVgepaR1BfDWQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
