@@ -1,14 +1,15 @@
 import 'package:api/core/utils/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 abstract class MyAppTextStyles {
-  static final pacifico400size64 = TextStyle(
-    fontFamily: 'Pacifico',
-    fontSize: 64,
-    fontWeight: FontWeight.w400,
-
-    color: MyAppColors.deepBrown,
+  static final montserrat700size24 = GoogleFonts.montserrat(
+    fontSize: 24.sp,
+    fontWeight: FontWeight.w700,
+    color: MyAppColors.secondaryColor,
   );
+
   static final pacifico400size28 = TextStyle(
     fontFamily: 'Pacifico',
     fontSize: 28,

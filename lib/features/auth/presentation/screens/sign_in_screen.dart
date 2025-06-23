@@ -1,14 +1,18 @@
+import 'package:api/core/cache/cache_helper.dart';
 import 'package:api/core/di/service_locator.dart';
 import 'package:api/core/functions/custom_snackbar.dart';
+import 'package:api/core/utils/api_strings.dart';
 import 'package:api/core/utils/colors.dart';
+import 'package:api/core/utils/text_styles.dart';
 import 'package:api/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:api/features/auth/presentation/cubit/auth_state.dart';
-import 'package:api/features/user/presentation/cubit/result_state.dart';
+import 'package:api/features/auth/presentation/widgets/social_sign_in_button.dart';
+import 'package:api/features/home/presentation/cubit/result_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:go_router/go_router.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
@@ -33,12 +37,16 @@ class _SignInScreenView extends StatelessWidget {
         listener: (context, state) {
           state.whenOrNull(
             success: (userCredential) {
+              getIt<CacheHelper>().saveData(
+                key: ApiStrings.userIdKey,
+                value: userCredential.user!.uid,
+              );
               successSnackBar(
                 context,
                 InfoSnackBarState(
                     'Successfully signed in as ${userCredential.user?.displayName ?? userCredential.user?.email ?? 'user'}'),
               );
-              // TODO: Navigate to the home screen or another part of your app
+              context.go('/home');
             },
             error: (message) {
               errorSnackBar(context, InfoSnackBarState(message));
@@ -59,11 +67,7 @@ class _SignInScreenView extends StatelessWidget {
                       Text(
                         "Let's get started\nsaving food!",
                         textAlign: TextAlign.center,
-                        style: GoogleFonts.poppins(
-                          fontSize: 28.sp,
-                          fontWeight: FontWeight.w700,
-                          color: MyAppColors.primaryColor,
-                        ),
+                        style: MyAppTextStyles.montserrat700size24,
                       ),
                       SizedBox(height: 20.h),
                       Image.asset(
@@ -71,28 +75,28 @@ class _SignInScreenView extends StatelessWidget {
                         height: 250.h,
                       ),
                       const Spacer(flex: 2),
-                      _SocialSignInButton(
+                      SocialSignInButton(
                         text: 'Continue with Google',
-                        icon: Image.asset('assets/images/google.jpeg',
+                        icon: Image.asset('assets/images/google.png',
                             height: 24.r, width: 24.r),
                         onPressed: () =>
                             context.read<AuthCubit>().signInWithGoogle(),
                         backgroundColor: Colors.white,
-                        textColor: Colors.black,
+                        textColor: MyAppColors.secondaryColor,
                         borderColor: MyAppColors.primaryColor,
                       ),
-                      SizedBox(height: 12.h),
-                      _SocialSignInButton(
+                      SizedBox(height: 18.h),
+                      SocialSignInButton(
                         text: 'Continue with Facebook',
-                        icon: FaIcon(FontAwesomeIcons.facebook,
+                        icon: FaIcon(FontAwesomeIcons.facebookF,
                             color: Colors.white, size: 24.r),
                         onPressed: () =>
                             context.read<AuthCubit>().signInWithFacebook(),
                         backgroundColor: const Color(0xFF1877F2),
                         textColor: Colors.white,
                       ),
-                      SizedBox(height: 12.h),
-                      _SocialSignInButton(
+                      SizedBox(height: 18.h),
+                      SocialSignInButton(
                         text: 'Continue with Email',
                         icon: Icon(Icons.email_outlined,
                             color: Colors.white, size: 24.r),
@@ -172,43 +176,3 @@ class _SignInScreenView extends StatelessWidget {
   }
 }
 
-class _SocialSignInButton extends StatelessWidget {
-  final String text;
-  final Widget icon;
-  final VoidCallback onPressed;
-  final Color backgroundColor;
-  final Color textColor;
-  final Color? borderColor;
-
-  const _SocialSignInButton({
-    required this.text,
-    required this.icon,
-    required this.onPressed,
-    required this.backgroundColor,
-    required this.textColor,
-    this.borderColor,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton.icon(
-      icon: icon,
-      label: Text(text,
-          style: GoogleFonts.poppins(
-              color: textColor,
-              fontSize: 16.sp,
-              fontWeight: FontWeight.w500)),
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: backgroundColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30.r),
-          side: borderColor != null
-              ? BorderSide(color: borderColor!, width: 1.5)
-              : BorderSide.none,
-        ),
-        padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 24.w),
-      ),
-    );
-  }
-}

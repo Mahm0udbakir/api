@@ -1,3 +1,4 @@
+import 'package:api/core/cache/cache_helper.dart';
 import 'package:api/core/di/service_locator.dart';
 import 'package:api/core/routes/app_router.dart';
 import 'package:api/firebase_options.dart';
@@ -12,6 +13,7 @@ Future<void> main() async {
   );
   
   setupServiceLocator();
+  await getIt<CacheHelper>().init();
   runApp(const MyApp());
 }
 
